@@ -1,4 +1,3 @@
-import { PORTFOLIO } from '@/lib/constants';
 
 export default function PortfolioPage() {
   const portfolioData = [
@@ -35,7 +34,7 @@ export default function PortfolioPage() {
         <div className="lcg-container">
           <h1 className="lcg-page-title">Our Portfolio</h1>
           <p className="lcg-page-lede">
-            We've assembled a diverse portfolio of infrastructure and industrial businesses that serve critical needs across Southeast Asia.
+            We&apos;ve assembled a diverse portfolio of infrastructure and industrial businesses that serve critical needs across Southeast Asia.
           </p>
         </div>
       </section>

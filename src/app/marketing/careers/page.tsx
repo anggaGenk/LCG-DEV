@@ -43,7 +43,7 @@ export default function CareersPage() {
         <div className="lcg-container">
           <h1 className="lcg-page-title">Careers</h1>
           <p className="lcg-page-lede">
-            Join us in building critical infrastructure across Southeast Asia. We're looking for talented professionals who are passionate about long-term impact and operational excellence.
+            Join us in building critical infrastructure across Southeast Asia. We&apos;re looking for talented professionals who are passionate about long-term impact and operational excellence.
           </p>
         </div>
       </section>

@@ -39,9 +39,8 @@ export default function ContactPage() {
       setSubmitted(true);
       formRef.current?.reset();
       setTimeout(() => setSubmitted(false), 5000);
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
-      console.error('Form submission error:', err);
     } finally {
       setLoading(false);
     }
@@ -53,7 +52,7 @@ export default function ContactPage() {
         <div className="lcg-container">
           <h1 className="lcg-page-title">Get in touch</h1>
           <p className="lcg-page-lede">
-            Whether you have a question about our services, want to explore an investment opportunity, or simply want to say hello — we'd love to hear from you.
+            Whether you have a question about our services, want to explore an investment opportunity, or simply want to say hello — we&apos;d love to hear from you.
           </p>
         </div>
       </section>
@@ -103,7 +102,7 @@ export default function ContactPage() {
                   <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '48px', marginBottom: '16px' }}>✓</div>
                     <p style={{ fontSize: '18px', fontWeight: '500', marginBottom: '8px' }}>Message sent successfully!</p>
-                    <p style={{ color: 'var(--fg-2)' }}>Thank you for reaching out. We'll get back to you soon.</p>
+                    <p style={{ color: 'var(--fg-2)' }}>Thank you for reaching out. We&apos;ll get back to you soon.</p>
                   </div>
                 </div>
               ) : (
