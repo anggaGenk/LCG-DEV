@@ -97,12 +97,12 @@ function AboutVision() {
 }
 
 function AboutOrganization() {
-  const ceo = { name: 'Bambang Sutrisno', role: 'Founder & Chief Executive Officer' };
+  const ceo = { name: 'Randika Galih Gemilang', role: 'Founder & Chief Executive Officer' };
   const reports = [
-    { name: 'Siti Nurhaliza', role: 'Chief Operating Officer' },
-    { name: 'Rudi Hartono', role: 'Chief Financial Officer' },
-    { name: 'Michael Chen', role: 'Managing Director, Projects' },
-    { name: 'Dr. Eka Putra', role: 'Director, Engineering & Operations' },
+    { name: 'Yuwanda Fauzi', role: 'Chief Operating Officer' },
+    { name: 'Armando Rozano', role: 'Chief Financial Officer' },
+    { name: 'Anggita Diah Praswara', role: 'Managing Director, Projects' },
+    { name: 'Angga Aditya Praswara', role: 'Director, Engineering & Operations' },
   ];
 
   return (
