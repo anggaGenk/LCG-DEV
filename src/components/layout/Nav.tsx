@@ -136,7 +136,7 @@ const NAV_LINKS = [
   { id: 'services', label: 'Services', href: '/marketing/services' },
   { id: 'portfolio', label: 'Portfolio', href: '/marketing/portfolio' },
   { id: 'insights', label: 'Insights', href: '/marketing/insights' },
-  { id: 'careers', label: 'Careers', href: '/marketing/careers' },
+  // { id: 'careers', label: 'Careers', href: '/marketing/careers' },
 ];
 
 export function Nav() {

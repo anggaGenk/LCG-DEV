@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 /* =====================================================================
    About page with 5 sub-sections:
@@ -44,25 +45,25 @@ function AboutVision() {
       id: 'access',
       title: 'Access',
       desc: 'Expanding access to essential infrastructure services — water, energy, logistics — to underserved communities.',
-      icon: '💧',
+      image: '/assets/mission-access.jpg',
     },
     {
       id: 'engineering',
       title: 'Engineering Excellence',
       desc: 'Building and operating assets to world-class standards, maximizing reliability and efficiency.',
-      icon: '⚙️',
+      image: '/assets/mission-engineering.jpg',
     },
     {
       id: 'partnership',
       title: 'Strategic Partnership',
       desc: 'Collaborating with local management, governments, and communities to ensure sustainable growth.',
-      icon: '🤝',
+      image: '/assets/mission-partnership.jpg',
     },
     {
       id: 'stewardship',
       title: 'Environmental Stewardship',
       desc: 'Investing in infrastructure that reduces environmental impact and supports the energy transition.',
-      icon: '🌱',
+      image: '/assets/mission-stewardship.jpg',
     },
   ];
 
@@ -75,7 +76,15 @@ function AboutVision() {
       <div className="lcg-mission-grid">
         {missions.map((m) => (
           <div key={m.id} className="lcg-mission-card">
-            <div className="lcg-mission-image">{m.icon}</div>
+            <div className="lcg-mission-image">
+              <Image
+                src={m.image}
+                alt={m.title}
+                width={300}
+                height={200}
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+              />
+            </div>
             <div className="lcg-mission-content">
               <h3 className="lcg-mission-title">{m.title}</h3>
               <p className="lcg-mission-desc">{m.desc}</p>
