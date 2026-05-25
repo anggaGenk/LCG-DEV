@@ -1,15 +1,50 @@
 'use client';
 
 import { SITE } from '@/lib/constants';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setError(null);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      organization: formData.get('organization'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        setError(errorData.error || 'Failed to send message');
+        setLoading(false);
+        return;
+      }
+
+      setSubmitted(true);
+      formRef.current?.reset();
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError('Network error. Please try again.');
+      console.error('Form submission error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,32 +107,37 @@ export default function ContactPage() {
                   </div>
                 </div>
               ) : (
-                <form className="lcg-form" onSubmit={handleSubmit}>
+                <form className="lcg-form" onSubmit={handleSubmit} ref={formRef}>
+                  {error && (
+                    <div style={{ padding: '12px 16px', marginBottom: '20px', background: '#fee2e2', border: '1px solid #fecaca', borderRadius: '4px', color: '#991b1b' }}>
+                      {error}
+                    </div>
+                  )}
                   <div className="lcg-form-grid">
                     <div className="lcg-field">
-                      <label>Name</label>
-                      <input type="text" placeholder="Your name" required />
+                      <label htmlFor="name">Name</label>
+                      <input id="name" name="name" type="text" placeholder="Your name" required disabled={loading} />
                     </div>
 
                     <div className="lcg-field">
-                      <label>Email</label>
-                      <input type="email" placeholder="your@email.com" required />
+                      <label htmlFor="email">Email</label>
+                      <input id="email" name="email" type="email" placeholder="your@email.com" required disabled={loading} />
                     </div>
 
                     <div className="lcg-field lcg-field--full">
-                      <label>Organization</label>
-                      <input type="text" placeholder="Your company" />
+                      <label htmlFor="organization">Organization</label>
+                      <input id="organization" name="organization" type="text" placeholder="Your company" disabled={loading} />
                     </div>
 
                     <div className="lcg-field lcg-field--full">
-                      <label>Message</label>
-                      <textarea placeholder="Tell us about your inquiry..." required />
+                      <label htmlFor="message">Message</label>
+                      <textarea id="message" name="message" placeholder="Tell us about your inquiry..." required disabled={loading} />
                     </div>
                   </div>
 
                   <div className="lcg-form-foot">
-                    <button type="submit" className="lcg-btn lcg-btn--amber">
-                      Send message
+                    <button type="submit" className="lcg-btn lcg-btn--amber" disabled={loading}>
+                      {loading ? 'Sending...' : 'Send message'}
                     </button>
                   </div>
                 </form>
