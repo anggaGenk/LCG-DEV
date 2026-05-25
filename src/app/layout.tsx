@@ -29,14 +29,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
     >
-      <body className="flex flex-col min-h-screen">
-        <Nav />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+      <body>
+        <div className="lcg-app">
+          <Nav />
+          <main className="lcg-main">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

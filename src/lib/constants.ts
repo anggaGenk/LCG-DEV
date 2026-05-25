@@ -9,10 +9,10 @@ export const SITE = {
 };
 
 export const NAV_LINKS = [
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About', href: '/marketing/about' },
+  { label: 'Services', href: '/marketing/services' },
+  { label: 'Portfolio', href: '/marketing/portfolio' },
+  { label: 'Contact', href: '/marketing/contact' },
 ];
 
 export const HERO = {
@@ -24,10 +24,10 @@ export const HERO = {
 };
 
 export const STATS = [
-  { value: '12+', label: 'Years of operations' },
-  { value: '3', label: 'Core sectors' },
-  { value: '15+', label: 'Portfolio companies' },
-  { value: '$2.4B', label: 'Assets under management' },
+  { prefix: '', target: 1820, suffix: ' MW', decimals: 0, useComma: true, l: 'Operating capacity' },
+  { prefix: '$', target: 2.4, suffix: 'B', decimals: 1, useComma: false, l: 'Assets under management' },
+  { prefix: '', target: 11, suffix: '', decimals: 0, useComma: false, l: 'Portfolio companies' },
+  { prefix: '', target: 2400, suffix: '+', decimals: 0, useComma: true, l: 'People employed' },
 ];
 
 export const SERVICES = [
