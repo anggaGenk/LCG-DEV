@@ -102,7 +102,7 @@ function AboutOrganization() {
     { name: 'Yuwanda Fauzi', role: 'Chief Operating Officer' },
     { name: 'Armando Rozano', role: 'Chief Financial Officer' },
     { name: 'Anggita Diah Praswara', role: 'Managing Director, Projects' },
-    { name: 'Angga Aditya Praswara', role: 'Director, Engineering & Operations' },
+    { name: 'Nicky Ilham Lembayu', role: 'Director, Engineering & Operations' },
   ];
 
   return (

@@ -10,9 +10,9 @@ export default function PortfolioPage() {
   ];
 
   const stats = [
-    { value: '6', label: 'Portfolio companies' },
-    { value: '$2.4B', label: 'Assets under management' },
-    { value: '1,820 MW', label: 'Total energy capacity' },
+    { value: '0', label: 'Portfolio companies' },
+    { value: '$0', label: 'Assets under management' },
+    { value: '0 MW', label: 'Total energy capacity' },
   ];
 
   const getStatusClass = (status: string) => {
