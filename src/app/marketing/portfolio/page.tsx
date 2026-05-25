@@ -1,12 +1,12 @@
 
 export default function PortfolioPage() {
-  const portfolioData = [
-    { name: 'Cilegon CCGT', sector: 'Energy', stake: '23%', capacity: '660 MW', status: 'Operational', location: 'West Java' },
-    { name: 'Wayang Windu', sector: 'Energy', stake: '18%', capacity: '227 MW', status: 'Operational', location: 'West Java' },
-    { name: 'Bengkulu Solar', sector: 'Energy', stake: '40%', capacity: '100 MW', status: 'Operational', location: 'Bengkulu' },
-    { name: 'Tanjung Priok Terminal', sector: 'Logistics', stake: '25%', capacity: '4.5M TEU', status: 'Operational', location: 'Jakarta' },
-    { name: 'Surabaya Cold Chain', sector: 'Industrial', stake: '35%', capacity: '50K tons', status: 'Construction', location: 'East Java' },
-    { name: 'LCG Field Services', sector: 'Industrial', stake: '100%', capacity: '2,400 staff', status: 'Operational', location: 'Multi-location' },
+  const portfolioData: Array<{ name: string; sector: string; stake: string; capacity: string; status: string; location: string }> = [
+    // { name: 'Cilegon CCGT', sector: 'Energy', stake: '23%', capacity: '660 MW', status: 'Operational', location: 'West Java' },
+    // { name: 'Wayang Windu', sector: 'Energy', stake: '18%', capacity: '227 MW', status: 'Operational', location: 'West Java' },
+    // { name: 'Bengkulu Solar', sector: 'Energy', stake: '40%', capacity: '100 MW', status: 'Operational', location: 'Bengkulu' },
+    // { name: 'Tanjung Priok Terminal', sector: 'Logistics', stake: '25%', capacity: '4.5M TEU', status: 'Operational', location: 'Jakarta' },
+    // { name: 'Surabaya Cold Chain', sector: 'Industrial', stake: '35%', capacity: '50K tons', status: 'Construction', location: 'East Java' },
+    // { name: 'LCG Field Services', sector: 'Industrial', stake: '100%', capacity: '2,400 staff', status: 'Operational', location: 'Multi-location' },
   ];
 
   const stats = [
