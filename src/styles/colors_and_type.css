@@ -1,0 +1,155 @@
+/* =====================================================================
+   LCG · Lasana Cahaya Gemilang — Foundation Tokens
+   Typography + Color system.
+   "Cahaya" (light) + "Gemilang" (brilliance) — sharp accents against
+   structured dark and light neutrals.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---- Brand colors ------------------------------------------------ */
+  --lcg-ink:            #111111;  /* primary dominant, derived from logo */
+  --lcg-ink-2:          #1B1B1B;
+  --lcg-ink-3:          #2A2A2A;
+  --lcg-graphite:       #4B5563;  /* secondary / muted text            */
+  --lcg-slate:          #6B7280;
+  --lcg-mist:           #9CA3AF;
+  --lcg-line:           #E5E7EB;  /* borders, hairlines                */
+  --lcg-line-strong:    #D1D5DB;
+  --lcg-paper:          #F9FAFB;  /* off-white surface                 */
+  --lcg-paper-2:        #F3F4F6;
+  --lcg-white:          #FFFFFF;
+
+  /* "Cahaya" accent — Radiant Amber / Warm Gold                       */
+  --lcg-amber:          #D4AF37;  /* primary brand accent              */
+  --lcg-amber-bright:   #F5A623;  /* alternate, more energetic         */
+  --lcg-amber-50:       #FBF6E4;
+  --lcg-amber-100:      #F4E6B0;
+  --lcg-amber-200:      #ECD27A;
+  --lcg-amber-300:      #E0BC4D;
+  --lcg-amber-400:      #D4AF37;  /* = brand */
+  --lcg-amber-500:      #B8962A;
+  --lcg-amber-600:      #957722;
+  --lcg-amber-700:      #6E5818;
+
+  /* Semantic states */
+  --lcg-success:        #16A34A;
+  --lcg-warning:        #D97706;
+  --lcg-danger:         #DC2626;
+  --lcg-info:           #2563EB;
+
+  /* ---- Foreground / background semantic ---------------------------- */
+  --fg-1: var(--lcg-ink);         /* primary text                       */
+  --fg-2: var(--lcg-graphite);    /* secondary / muted                  */
+  --fg-3: var(--lcg-slate);       /* tertiary / metadata                */
+  --fg-4: var(--lcg-mist);        /* disabled / placeholder             */
+  --fg-on-ink:    var(--lcg-white);
+  --fg-on-amber:  var(--lcg-ink);
+  --fg-accent:    var(--lcg-amber);
+
+  --bg-page:      var(--lcg-white);
+  --bg-surface:   var(--lcg-paper);
+  --bg-sunk:      var(--lcg-paper-2);
+  --bg-ink:       var(--lcg-ink);
+
+  --border-1:     var(--lcg-line);
+  --border-2:     var(--lcg-line-strong);
+  --border-ink:   var(--lcg-ink);
+
+  /* ---- Type system ------------------------------------------------- */
+  --font-sans:    "Plus Jakarta Sans", "Inter", system-ui, -apple-system,
+                  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Display & headings (px values; rely on browser default 16px root) */
+  --type-display-1:    700 48px/1.2  var(--font-sans);  /* hero        */
+  --type-display-2:    700 40px/1.2  var(--font-sans);
+  --type-h1:           600 32px/1.3  var(--font-sans);  /* section     */
+  --type-h2:           500 24px/1.3  var(--font-sans);  /* sub-section */
+  --type-h3:           600 20px/1.35 var(--font-sans);
+  --type-body:         400 16px/1.5  var(--font-sans);  /* paragraph   */
+  --type-body-sm:      400 14px/1.5  var(--font-sans);
+  --type-label:        600 14px/1.0  var(--font-sans);  /* button/label*/
+  --type-caption:      500 12px/1.4  var(--font-sans);
+  --type-overline:     600 11px/1.2  var(--font-sans);  /* tracked     */
+  --type-code:         500 14px/1.5  var(--font-mono);
+
+  /* Letter spacing tokens */
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.04em;
+  --tracking-overline: 0.12em;
+
+  /* ---- Spacing scale (4px grid) ------------------------------------ */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---- Radii — minimal, honors the logo's sharp angles ------------- */
+  --radius-0:   0;
+  --radius-1:   2px;
+  --radius-2:   4px;       /* buttons, chips                            */
+  --radius-3:   6px;
+  --radius-4:   8px;       /* cards, containers — MAX in system         */
+  --radius-pill: 999px;    /* reserved for status dots / avatars only   */
+
+  /* ---- Elevation — restrained, mostly hairlines + soft drops ------- */
+  --shadow-0:   none;
+  --shadow-1:   0 1px 2px rgba(17,17,17,0.06);
+  --shadow-2:   0 1px 3px rgba(17,17,17,0.08), 0 1px 2px rgba(17,17,17,0.04);
+  --shadow-3:   0 4px 12px rgba(17,17,17,0.08), 0 1px 2px rgba(17,17,17,0.04);
+  --shadow-4:   0 12px 32px rgba(17,17,17,0.12), 0 2px 6px rgba(17,17,17,0.04);
+  --shadow-focus: 0 0 0 3px rgba(212,175,55,0.35);
+
+  /* ---- Motion ------------------------------------------------------ */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --dur-1:  120ms;
+  --dur-2:  180ms;
+  --dur-3:  240ms;
+  --dur-4:  360ms;
+}
+
+/* =====================================================================
+   Element defaults — apply tokens to bare elements so unstyled markup
+   already reads as LCG.
+   ===================================================================== */
+html, body {
+  font: var(--type-body);
+  color: var(--fg-1);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 { font: var(--type-display-1); letter-spacing: var(--tracking-tight); color: var(--fg-1); margin: 0 0 var(--space-4); }
+h2 { font: var(--type-h1);        letter-spacing: var(--tracking-tight); color: var(--fg-1); margin: 0 0 var(--space-3); }
+h3 { font: var(--type-h2);        color: var(--fg-1); margin: 0 0 var(--space-3); }
+h4 { font: var(--type-h3);        color: var(--fg-1); margin: 0 0 var(--space-2); }
+p  { font: var(--type-body);      color: var(--fg-1); margin: 0 0 var(--space-4); text-wrap: pretty; }
+small { font: var(--type-body-sm); color: var(--fg-2); }
+code, kbd, pre, samp { font: var(--type-code); }
+a { color: var(--fg-1); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+a:hover { color: var(--lcg-amber-500); }
+
+::selection { background: var(--lcg-amber-200); color: var(--lcg-ink); }
+
+/* Utility helpers used by previews */
+.lcg-overline {
+  font: var(--type-overline);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
