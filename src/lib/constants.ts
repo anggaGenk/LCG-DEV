@@ -3,8 +3,8 @@ export const SITE = {
   shortName: 'LCG',
   description: 'Building infrastructure for an enduring economy.',
   url: 'https://lcg-energy.id',
-  email: 'contact@lcg.id',
-  phone: '+62 21 29263333',
+  email: 'sales@lasanacahayagemilang.com',
+  phone: '+6285691776698',
   offices: 'Jakarta · Medan · Singapore',
 };
 
