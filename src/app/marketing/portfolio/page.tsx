@@ -74,7 +74,7 @@ export default function PortfolioPage() {
             </table>
           </div>
 
-          <div className="lcg-stats-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+          <div className="lcg-stats-grid">
             {stats.map((stat) => (
               <div key={stat.label} className="lcg-stat">
                 <div className="lcg-stat-n">{stat.value}</div>

@@ -184,7 +184,7 @@ function AboutCommissioners() {
   return (
     <div className="lcg-container">
       <h2 className="lcg-section-title">Board of Commissioners</h2>
-      <div className="lcg-board-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      <div className="lcg-board-grid">
         {commissioners.map((c) => (
           <div key={c.name} className="lcg-board-card">
             <div className="lcg-board-portrait">👤</div>

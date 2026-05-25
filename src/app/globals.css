@@ -257,6 +257,17 @@ body { background: var(--bg-page); color: var(--fg-1); }
   .lcg-nav-dd-arrow { transition: none; transform: none; }
 }
 
+/* ---- Mobile Menu -------------------------------------------------- */
+.lcg-nav-hamburger { display: none; }
+
+@media (max-width: 768px) {
+  .lcg-nav-hamburger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 /* ---- Hero -------------------------------------------------------- */
 .lcg-hero {
   position: relative;
@@ -1035,7 +1046,100 @@ body { background: var(--bg-page); color: var(--fg-1); }
   margin-top: 12px;
 }
 
-/* ---- Responsive (gentle) ----------------------------------------- */
+/* ---- Responsive Breakpoints ----------------------------------------- */
+/* MD: 768px (Tablets) */
+@media (max-width: 768px) {
+  .lcg-nav-links { display: none; }
+  .lcg-nav-contact { display: none; }
+  .lcg-container { padding: 0 24px; }
+  .lcg-section { padding: 64px 24px; }
+  .lcg-section.is-padded { padding: 64px 24px; }
+  .lcg-hero { padding: 64px 24px 80px; }
+  .lcg-hero-title { font-size: 32px; }
+  .lcg-page-hero { padding: 56px 24px 40px; }
+  .lcg-page-title { font-size: 32px; }
+  .lcg-section-title { font-size: 24px; }
+
+  /* Grids */
+  .lcg-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .lcg-svc-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lcg-team-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .lcg-mission-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lcg-org-reports { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .lcg-board-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .lcg-water-segments { grid-template-columns: 1fr; gap: 24px; }
+  .lcg-steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .lcg-posts-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lcg-contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .lcg-form-grid { grid-template-columns: 1fr; gap: 16px; }
+
+  /* Footer */
+  .lcg-footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .lcg-footer-cols { grid-template-columns: 1fr; gap: 24px; }
+
+  /* Typography */
+  .lcg-mission-title { font-size: 18px; }
+  .lcg-stat-l { font-size: 12px; }
+
+  /* Spacing */
+  .lcg-about-subnav-inner { gap: 12px; }
+  .lcg-timeline-item { padding-left: 60px; }
+
+  /* Navigation trigger styles */
+  .lcg-nav-hamburger { display: flex; }
+}
+
+/* SM: 480px (Phones) */
+@media (max-width: 480px) {
+  .lcg-container { padding: 0 16px; }
+  .lcg-section { padding: 48px 16px; }
+  .lcg-section.is-padded { padding: 48px 16px; }
+  .lcg-hero { padding: 48px 16px 64px; }
+  .lcg-hero-title { font-size: 28px; line-height: 1.2; }
+  .lcg-page-hero { padding: 40px 16px 32px; }
+  .lcg-page-title { font-size: 24px; }
+  .lcg-page-lede { font-size: 15px; }
+  .lcg-section-title { font-size: 20px; }
+
+  /* Grids */
+  .lcg-stats-grid { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-svc-grid { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-team-grid { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-mission-grid { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-org-reports { grid-template-columns: 1fr; gap: 16px; }
+  .lcg-board-grid { grid-template-columns: 1fr; gap: 16px; }
+  .lcg-water-segments { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-steps { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-posts-grid { grid-template-columns: 1fr; gap: 20px; }
+  .lcg-contact-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lcg-form-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Footer */
+  .lcg-footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .lcg-footer-cols { grid-template-columns: 1fr; gap: 20px; }
+
+  /* Typography */
+  .lcg-mission-title { font-size: 16px; }
+  .lcg-stat-n { font-size: 24px; }
+  .lcg-stat-l { font-size: 11px; }
+  .lcg-mission-desc { font-size: 14px; }
+
+  /* Spacing */
+  .lcg-about-subnav-inner { gap: 8px; }
+  .lcg-timeline-item { padding-left: 50px; }
+  .lcg-timeline-dot { width: 12px; height: 12px; }
+
+  /* Buttons */
+  .lcg-btn { padding: 12px 20px; font-size: 14px; min-height: 44px; }
+
+  /* Forms */
+  .lcg-field label { font-size: 13px; }
+  input[type="text"],
+  input[type="email"],
+  textarea { font-size: 16px; padding: 12px; min-height: 44px; }
+}
+
+/* ---- Responsive Legacy (LG: 980px) ----------------------------------------- */
 @media (max-width: 980px) {
   .lcg-nav-links { display: none; }
   .lcg-hero { padding: 80px 24px 100px; }
