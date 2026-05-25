@@ -34,9 +34,9 @@ export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
           {description}
         </p>
         <div className="lcg-hero-cta">
-          <button className="lcg-btn lcg-btn--ink">
+          <Link href="/marketing/contact" className="lcg-btn lcg-btn--ink">
             {cta1}
-          </button>
+          </Link>
           <Link href="/marketing/portfolio" className="lcg-btn lcg-btn--outline">
             {cta2} &nbsp;→
           </Link>
