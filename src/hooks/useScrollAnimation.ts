@@ -24,6 +24,11 @@ export function useScrollAnimation() {
             el.classList.add('is-visible');
           }
 
+          // Apply animation class if it's an animated element
+          if (el.className.includes('-animated')) {
+            el.classList.add('is-visible');
+          }
+
           // Handle staggered animations for children
           const animatedChildren = el.querySelectorAll('[class*="-animated"]');
           if (animatedChildren.length > 0) {
