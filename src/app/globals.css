@@ -691,7 +691,7 @@ body { background: var(--bg-page); color: var(--fg-1); }
 }
 
 .lcg-svc-card:hover .lcg-svc-icon {
-  transform: scale(1.15);
+  transform: scale(1.08);
   filter: hue-rotate(0deg) brightness(1.1);
 }
 
