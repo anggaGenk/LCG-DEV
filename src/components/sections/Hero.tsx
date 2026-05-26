@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 interface HeroProps {
   title: string;
@@ -11,6 +12,14 @@ interface HeroProps {
 }
 
 export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
+  useEffect(() => {
+    // Trigger animations on mount for cross-browser compatibility
+    const words = document.querySelectorAll('.lcg-merge-word');
+    words.forEach((word) => {
+      word.classList.add('is-animating');
+    });
+  }, []);
+
   const splitWords = (text: string, className: string) =>
     text.split(' ').map((w, i, arr) => (
       <span key={i}>

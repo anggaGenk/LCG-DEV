@@ -362,10 +362,6 @@ button.lcg-nav-link {
   opacity: 0;
   transform: translateX(40px) translateY(8px);
   will-change: opacity, transform;
-  -webkit-animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 0ms forwards;
-  animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 0ms forwards;
-  -webkit-animation-play-state: running;
-  animation-play-state: running;
 }
 
 .lcg-merge-word:nth-child(even) {
@@ -374,12 +370,21 @@ button.lcg-nav-link {
 
 .lcg-merge-word--eyebrow {
   transform: translateX(18px);
-  -webkit-animation-duration: 700ms;
-  animation-duration: 700ms;
 }
 
 .lcg-merge-word--eyebrow:nth-child(even) {
   transform: translateX(-18px);
+}
+
+/* Trigger animation when is-animating class is added via JavaScript */
+.lcg-merge-word.is-animating {
+  -webkit-animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lcg-merge-word--eyebrow.is-animating {
+  -webkit-animation-duration: 700ms;
+  animation-duration: 700ms;
 }
 
 @-webkit-keyframes lcgMergeIn {
@@ -397,10 +402,11 @@ button.lcg-nav-link {
 @media (prefers-reduced-motion: reduce) {
   .lcg-merge-word {
     opacity: 1;
-    filter: none;
     transform: none;
+  }
+
+  .lcg-merge-word.is-animating {
     animation: none;
-    will-change: auto;
   }
 }
 
