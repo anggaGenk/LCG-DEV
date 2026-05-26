@@ -361,52 +361,127 @@ button.lcg-nav-link {
   display: inline-block;
   opacity: 0;
   transform: translateX(40px) translateY(8px);
-  will-change: opacity, transform;
+  /* Avoid will-change on initial state as it can cause rendering issues on Windows Chrome */
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 .lcg-merge-word:nth-child(even) {
   transform: translateX(-40px) translateY(8px);
+  transform-origin: right center;
 }
 
 .lcg-merge-word--eyebrow {
   transform: translateX(18px);
+  transform-origin: left center;
 }
 
 .lcg-merge-word--eyebrow:nth-child(even) {
   transform: translateX(-18px);
+  transform-origin: right center;
 }
 
 /* Trigger animation when is-animating class is added via JavaScript */
+/* Using both prefixed and unprefixed versions for maximum compatibility */
+/* Also provide a fallback auto-animation that starts immediately */
+.lcg-merge-word {
+  -webkit-animation: lcgMergeInFallback 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: lcgMergeInFallback 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-play-state: paused;
+}
+
 .lcg-merge-word.is-animating {
+  will-change: opacity, transform;
   -webkit-animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+
+.lcg-merge-word--eyebrow {
+  -webkit-animation-duration: 700ms;
+  animation-duration: 700ms;
 }
 
 .lcg-merge-word--eyebrow.is-animating {
   -webkit-animation-duration: 700ms;
   animation-duration: 700ms;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
 }
 
+/* Webkit-specific keyframes for maximum Safari/Chrome compatibility */
 @-webkit-keyframes lcgMergeIn {
-  0%   { opacity: 0; }
-  60%  { opacity: 1; }
-  100% { opacity: 1; transform: translateX(0) translateY(0); }
+  0%   {
+    opacity: 0;
+    transform: translateX(40px) translateY(8px);
+  }
+  60%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
 }
 
+/* Standard keyframes */
 @keyframes lcgMergeIn {
-  0%   { opacity: 0; }
-  60%  { opacity: 1; }
-  100% { opacity: 1; transform: translateX(0) translateY(0); }
+  0%   {
+    opacity: 0;
+    transform: translateX(40px) translateY(8px);
+  }
+  60%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+/* Fallback animation - paused by default, runs when animation-play-state: running */
+@-webkit-keyframes lcgMergeInFallback {
+  0%   {
+    opacity: 0;
+    transform: translateX(40px) translateY(8px);
+  }
+  60%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes lcgMergeInFallback {
+  0%   {
+    opacity: 0;
+    transform: translateX(40px) translateY(8px);
+  }
+  60%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lcg-merge-word {
     opacity: 1;
     transform: none;
+    will-change: auto;
   }
 
   .lcg-merge-word.is-animating {
+    -webkit-animation: none;
     animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 

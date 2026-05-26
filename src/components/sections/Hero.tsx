@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface HeroProps {
   title: string;
@@ -12,24 +12,55 @@ interface HeroProps {
 }
 
 export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
+  const heroRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
-    // Trigger animations on mount for cross-browser compatibility
-    const words = document.querySelectorAll('.lcg-merge-word');
-    words.forEach((word) => {
-      word.classList.add('is-animating');
-    });
+    // Use a ref to ensure we're targeting the correct section
+    if (!heroRef.current) return;
+
+    // Small delay to ensure DOM is fully rendered and styles are applied
+    // This fixes timing issues on Windows Chrome
+    const timeoutId = setTimeout(() => {
+      const words = heroRef.current?.querySelectorAll('.lcg-merge-word');
+      if (words && words.length > 0) {
+        words.forEach((word, index) => {
+          // Use requestAnimationFrame for better browser synchronization
+          requestAnimationFrame(() => {
+            // Add a data attribute with the index for alternative styling if needed
+            word.setAttribute('data-index', index.toString());
+            // Trigger reflow to ensure CSS variables/transitions are computed
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            word.offsetHeight;
+            // Now add the animation class
+            word.classList.add('is-animating');
+          });
+        });
+      }
+    }, 50); // 50ms delay for safer rendering
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const splitWords = (text: string, className: string) =>
     text.split(' ').map((w, i, arr) => (
-      <span key={i}>
-        <span className={className} style={{ animationDelay: `${i * 70}ms` }}>{w}</span>
+      <span key={i} data-word-index={i}>
+        <span
+          className={className}
+          style={{
+            animationDelay: `${i * 70}ms`,
+            // Explicit animation properties for Windows Chrome compatibility
+            animationFillMode: 'forwards',
+            animationPlayState: 'paused', // Will be activated by JS class
+          }}
+        >
+          {w}
+        </span>
         {i < arr.length - 1 ? ' ' : null}
       </span>
     ));
 
   return (
-    <section className="lcg-hero">
+    <section className="lcg-hero" ref={heroRef}>
       {/* Floating parallax background shapes */}
       <div className="lcg-hero-bg-shape lcg-hero-bg-shape-1" />
       <div className="lcg-hero-bg-shape lcg-hero-bg-shape-2" />
