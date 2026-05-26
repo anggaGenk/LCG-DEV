@@ -700,12 +700,19 @@ button.lcg-nav-link {
 }
 
 .lcg-svc-card-animated {
-  opacity: 0;
-  transform: translateY(60px);
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.lcg-svc-card-animated.is-visible {
-  animation: lcgFadeInUp 1200ms var(--ease-out) forwards;
+@media (prefers-reduced-motion: no-preference) {
+  .lcg-svc-card-animated {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  .lcg-svc-card-animated.is-visible {
+    animation: lcgFadeInUp 1200ms var(--ease-out) forwards;
+  }
 }
 
 .lcg-svc-icon {
@@ -860,12 +867,19 @@ button.lcg-nav-link {
 }
 
 .lcg-team-card-animated {
-  opacity: 0;
-  transform: scale(0.75);
+  opacity: 1;
+  transform: scale(1);
 }
 
-.lcg-team-card-animated.is-visible {
-  animation: lcgScaleIn 1200ms var(--ease-out) forwards;
+@media (prefers-reduced-motion: no-preference) {
+  .lcg-team-card-animated {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  .lcg-team-card-animated.is-visible {
+    animation: lcgScaleIn 1200ms var(--ease-out) forwards;
+  }
 }
 
 .lcg-team-card:hover {
