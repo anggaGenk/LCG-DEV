@@ -359,29 +359,38 @@ button.lcg-nav-link {
 .lcg-merge-in { perspective: 800px; }
 .lcg-merge-word {
   display: inline-block;
-  opacity: 0;
-  filter: blur(14px);
-  transform: translateX(40px) translateY(8px);
-  animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 1;
+  filter: none;
+  transform: none;
 }
-.lcg-merge-word:nth-child(even) {
-  transform: translateX(-40px) translateY(8px);
+
+@media (prefers-reduced-motion: no-preference) {
+  .lcg-merge-word {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateX(40px) translateY(8px);
+    animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .lcg-merge-word:nth-child(even) {
+    transform: translateX(-40px) translateY(8px);
+  }
+
+  .lcg-merge-word--eyebrow {
+    filter: blur(6px);
+    transform: translateX(18px);
+    animation-duration: 700ms;
+  }
+
+  .lcg-merge-word--eyebrow:nth-child(even) {
+    transform: translateX(-18px);
+  }
 }
-.lcg-merge-word--eyebrow {
-  filter: blur(6px);
-  transform: translateX(18px);
-  animation-duration: 700ms;
-}
-.lcg-merge-word--eyebrow:nth-child(even) {
-  transform: translateX(-18px);
-}
+
 @keyframes lcgMergeIn {
   0%   { opacity: 0; filter: blur(14px); }
   60%  { opacity: 1; }
   100% { opacity: 1; filter: blur(0); transform: translateX(0) translateY(0); letter-spacing: normal; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .lcg-merge-word { animation: none; opacity: 1; filter: none; transform: none; }
 }
 
 /* ---- Scroll-triggered animations ----------------------------------- */
