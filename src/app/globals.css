@@ -360,10 +360,11 @@ button.lcg-nav-link {
 .lcg-merge-word {
   display: inline-block;
   opacity: 0;
-  filter: blur(14px);
   transform: translateX(40px) translateY(8px);
-  will-change: opacity, filter, transform;
+  will-change: opacity, transform;
+  -webkit-animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 0ms forwards;
   animation: lcgMergeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 0ms forwards;
+  -webkit-animation-play-state: running;
   animation-play-state: running;
 }
 
@@ -372,8 +373,8 @@ button.lcg-nav-link {
 }
 
 .lcg-merge-word--eyebrow {
-  filter: blur(6px);
   transform: translateX(18px);
+  -webkit-animation-duration: 700ms;
   animation-duration: 700ms;
 }
 
@@ -381,10 +382,16 @@ button.lcg-nav-link {
   transform: translateX(-18px);
 }
 
-@keyframes lcgMergeIn {
-  0%   { opacity: 0; filter: blur(14px); }
+@-webkit-keyframes lcgMergeIn {
+  0%   { opacity: 0; }
   60%  { opacity: 1; }
-  100% { opacity: 1; filter: blur(0); transform: translateX(0) translateY(0); letter-spacing: normal; }
+  100% { opacity: 1; transform: translateX(0) translateY(0); }
+}
+
+@keyframes lcgMergeIn {
+  0%   { opacity: 0; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(0) translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
