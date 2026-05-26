@@ -21,23 +21,27 @@ export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
 
   return (
     <section className="lcg-hero">
+      {/* Floating parallax background shapes */}
+      <div className="lcg-hero-bg-shape lcg-hero-bg-shape-1" />
+      <div className="lcg-hero-bg-shape lcg-hero-bg-shape-2" />
+
       <div className="lcg-hero-inner">
         <div className="lcg-hero-eyebrow lcg-merge-in">
           <span className="lcg-overline" style={{color:'#111111'}}>
             {splitWords(subtitle, 'lcg-merge-word lcg-merge-word--eyebrow')}
           </span>
         </div>
-        <h1 className="lcg-hero-title lcg-merge-in">
+        <h1 className="lcg-hero-title lcg-merge-in lcg-hero-title-glow">
           {splitWords(title, 'lcg-merge-word')}
         </h1>
         <p className="lcg-hero-sub">
           {description}
         </p>
         <div className="lcg-hero-cta">
-          <Link href="/marketing/contact" className="lcg-btn lcg-btn--ink">
+          <Link href="/marketing/contact" className="lcg-btn lcg-btn--ink lcg-btn-hover-lift">
             {cta1}
           </Link>
-          <Link href="/marketing/portfolio" className="lcg-btn lcg-btn--outline">
+          <Link href="/marketing/portfolio" className="lcg-btn lcg-btn--outline lcg-btn-hover-lift">
             {cta2} &nbsp;→
           </Link>
         </div>

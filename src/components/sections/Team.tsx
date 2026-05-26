@@ -6,9 +6,12 @@ interface TeamProps {
 
 export function Team({ team }: TeamProps) {
   return (
-    <section className="lcg-section is-padded lcg-bg-surface">
+    <section className="lcg-section is-padded lcg-bg-surface lcg-team-scroll-container">
+      {/* Background parallax shapes */}
+      <div className="lcg-team-bg-shape" />
+
       <div className="lcg-container">
-        <div className="lcg-section-head">
+        <div className="lcg-section-head lcg-scroll-fade-in">
           <h2 className="lcg-section-title">Leadership</h2>
           <p className="lcg-page-lede" style={{ marginTop: 16 }}>
             Our team brings decades of experience building and operating critical infrastructure across Southeast Asia.
@@ -16,8 +19,8 @@ export function Team({ team }: TeamProps) {
         </div>
 
         <div className="lcg-team-grid">
-          {team.map((member) => (
-            <div key={member.id} className="lcg-team-card">
+          {team.map((member, i) => (
+            <div key={member.id} className="lcg-team-card lcg-team-card-animated" style={{ animationDelay: `${i * 100}ms` }}>
               <div className="lcg-team-portrait">
                 <span>{member.initials}</span>
               </div>

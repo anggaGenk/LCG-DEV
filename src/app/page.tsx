@@ -1,11 +1,16 @@
+'use client';
+
 import { Hero } from '@/components/sections/Hero';
 import { Stats } from '@/components/sections/Stats';
 import { Services } from '@/components/sections/Services';
 import { Team } from '@/components/sections/Team';
 import { SectionQuote } from '@/components/sections/SectionQuote';
 import { HERO, STATS, SERVICES, TEAM } from '@/lib/constants';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 export default function Home() {
+  useScrollAnimation();
+
   return (
     <>
       <Hero

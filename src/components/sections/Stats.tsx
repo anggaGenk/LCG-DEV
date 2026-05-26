@@ -56,11 +56,14 @@ function AnimatedStat({ prefix = '', target, suffix = '', decimals = 0, useComma
 
 export function Stats({ stats }: StatsProps) {
   return (
-    <section className="lcg-stats">
+    <section className="lcg-stats lcg-stats-scroll-container">
+      {/* Background parallax shape */}
+      <div className="lcg-stats-bg-shape" />
+
       <div className="lcg-container">
-        <div className="lcg-stats-grid">
+        <div className="lcg-stats-grid lcg-scroll-slide-up">
           {stats.map((s, i) => (
-            <div key={i} className="lcg-stat">
+            <div key={i} className="lcg-stat lcg-stat-card">
               <div className="lcg-stat-n">
                 <AnimatedStat {...s} delay={120 + i * 80} />
               </div>
