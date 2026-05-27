@@ -1196,7 +1196,8 @@ button.lcg-nav-link {
 
 /* Pulse animation on year on page load (for animated items) */
 .lcg-timeline-item-animated .lcg-timeline-year {
-  animation: lcgTimelineYearPulse 1.2s var(--ease-standard) 600ms;
+  animation: lcgTimelineYearPulse 1.2s var(--ease-standard) forwards;
+  animation-delay: inherit;
 }
 
 .lcg-timeline-title {

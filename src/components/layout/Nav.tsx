@@ -128,9 +128,9 @@ const NAV_LINKS = [
     dropdown: [
       { id: 'history', label: 'History', href: '/marketing/about?sub=history' },
       { id: 'vision', label: 'Vision & Mission', href: '/marketing/about?sub=vision' },
-      { id: 'organization', label: 'Organization', href: '/marketing/about?sub=organization' },
-      { id: 'directors', label: 'Board of Directors', href: '/marketing/about?sub=directors' },
-      { id: 'commissioners', label: 'Board of Commissioners', href: '/marketing/about?sub=commissioners' },
+      // { id: 'organization', label: 'Organization', href: '/marketing/about?sub=organization' },
+      // { id: 'directors', label: 'Board of Directors', href: '/marketing/about?sub=directors' },
+      // { id: 'commissioners', label: 'Board of Commissioners', href: '/marketing/about?sub=commissioners' },
     ]
   },
   { id: 'services', label: 'Services', href: '/marketing/services' },
