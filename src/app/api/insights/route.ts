@@ -1,96 +1,104 @@
 import { NextRequest, NextResponse } from 'next/server';
-import FirecrawlApp from 'firecrawl';
+import { FirecrawlClient } from 'firecrawl';
 
-// Initialize Firecrawl with API key from environment
-const firecrawl = new FirecrawlApp({
-  apiKey: process.env.FIRECRAWL_API_KEY,
-});
-
-interface InsightPost {
+interface NewsItem {
   id: string;
   title: string;
   excerpt: string;
-  tags: string[];
+  image: string;
   date: string;
-  readTime: string;
-  url?: string;
+  categories: string[];
+  source: string;
 }
+
+const firecrawlKey = process.env.FIRECRAWL_API_KEY;
 
 export async function GET(request: NextRequest) {
   try {
-    // Get the source URL from query params (e.g., /api/insights?url=https://...)
-    const url = request.nextUrl.searchParams.get('url');
-
-    // If no URL provided, return default insights data
-    if (!url) {
-      const defaultPosts: InsightPost[] = [
-        {
-          id: 'energy-transition',
-          title: 'The Energy Transition Opportunity',
-          excerpt: 'Southeast Asia is poised for rapid energy transition. We explore the infrastructure investments needed to support 50% renewable energy penetration by 2030.',
-          tags: ['Energy', 'Infrastructure'],
-          date: 'May 15, 2026',
-          readTime: '5 min read',
-        },
-        {
-          id: 'water-scarcity',
-          title: 'Investing in Water Security',
-          excerpt: 'Water scarcity affects millions across Southeast Asia. How patient capital can help build sustainable solutions that serve communities and create long-term returns.',
-          tags: ['Water', 'Impact'],
-          date: 'May 8, 2026',
-          readTime: '7 min read',
-        },
-        {
-          id: 'logistics-growth',
-          title: 'Logistics Networks as Economic Enablers',
-          excerpt: 'Efficient logistics is critical for supply chain resilience. We discuss how infrastructure investment in regional hubs creates multiplier effects across economies.',
-          tags: ['Logistics', 'Capital'],
-          date: 'April 30, 2026',
-          readTime: '6 min read',
-        },
-        {
-          id: 'operations-excellence',
-          title: 'Operational Excellence in Infrastructure',
-          excerpt: 'Operational improvements can generate returns comparable to greenfield development. Our approach to identifying and executing high-impact operational upgrades.',
-          tags: ['Operations', 'Value Creation'],
-          date: 'April 22, 2026',
-          readTime: '8 min read',
-        },
-      ];
-
-      return NextResponse.json({ posts: defaultPosts });
-    }
-
-    // Scrape content from the provided URL using Firecrawl
-    const crawlResult = await firecrawl.scrapeWebsite(url, {
-      formats: ['markdown', 'json'],
-    });
-
-    if (!crawlResult.success) {
+    if (!firecrawlKey) {
       return NextResponse.json(
-        { error: 'Failed to scrape website', details: crawlResult.error },
-        { status: 400 }
+        { error: 'Firecrawl API key not configured' },
+        { status: 500 }
       );
     }
 
-    // Parse the scraped content and extract insights
-    const content = crawlResult.markdown || crawlResult.json;
+    const app = new FirecrawlClient({ apiKey: firecrawlKey });
 
-    // For now, return a structured response
-    // In production, you'd parse the scraped content more intelligently
-    const posts: InsightPost[] = [
-      {
-        id: 'crawled-1',
-        title: 'Latest Infrastructure Insights',
-        excerpt: content?.substring(0, 200) || 'Fresh insights from our research',
-        tags: ['Infrastructure', 'Updates'],
-        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-        readTime: '5 min read',
-        url,
-      },
-    ];
+    // Scrape energy news from energyconnects.com
+    const scrapeResult = await app.scrapeUrl('https://www.energyconnects.com/news/', {
+      formats: ['markdown', 'html'],
+      onlyMainContent: true,
+    });
 
-    return NextResponse.json({ posts });
+    if (!scrapeResult.html) {
+      return NextResponse.json(
+        { error: 'Failed to scrape news', details: 'No content returned' },
+        { status: 500 }
+      );
+    }
+
+    // Parse the scraped content to extract news items
+    const html = scrapeResult.html;
+    const markdown = scrapeResult.markdown || '';
+
+    // Simple regex-based parsing for news items
+    const newsRegex = /<article[^>]*>[\s\S]*?<\/article>/g;
+    const articles = html.match(newsRegex) || [];
+
+    const newsItems: NewsItem[] = [];
+
+    articles.slice(0, 4).forEach((article, index) => {
+      // Extract title
+      const titleMatch = article.match(/<h[2-3][^>]*>([^<]+)<\/h[2-3]>/);
+      const title = titleMatch ? titleMatch[1].trim() : `News ${index + 1}`;
+
+      // Extract date
+      const dateMatch = article.match(/(\d{1,2}\s+\w+\s+\d{4}|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec\s+\d{1,2},?\s+\d{4})/);
+      const date = dateMatch ? dateMatch[0] : new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      // Extract image
+      const imgMatch = article.match(/<img[^>]+src=["']([^"']+)["']/);
+      const image = imgMatch ? imgMatch[1] : '/news-placeholder.jpg';
+
+      // Extract excerpt
+      const excerptMatch = article.match(/<p[^>]*>([^<]{20,200})<\/p>/);
+      const excerpt = excerptMatch ? excerptMatch[1].trim() : 'Energy and infrastructure news';
+
+      // Extract categories from text
+      const categories: string[] = [];
+      if (article.toLowerCase().includes('energy') || article.toLowerCase().includes('oil') || article.toLowerCase().includes('renewable')) {
+        categories.push('Energy');
+      }
+      if (article.toLowerCase().includes('water') || article.toLowerCase().includes('utility')) {
+        categories.push('Water');
+      }
+      if (article.toLowerCase().includes('renewable') || article.toLowerCase().includes('solar') || article.toLowerCase().includes('wind')) {
+        categories.push('Renewables');
+      }
+      if (article.toLowerCase().includes('oil') || article.toLowerCase().includes('gas')) {
+        categories.push('Oil & Gas');
+      }
+      if (article.toLowerCase().includes('infrastructure')) {
+        categories.push('Infrastructure');
+      }
+
+      if (categories.length === 0) {
+        categories.push('Energy');
+      }
+
+      newsItems.push({
+        id: `news-${index}`,
+        title,
+        excerpt,
+        image,
+        date,
+        categories: [...new Set(categories)],
+        source: 'Energy Connects',
+      });
+    });
+
+    // Return news items
+    return NextResponse.json({ news: newsItems });
   } catch (error) {
     console.error('Error fetching insights:', error);
     return NextResponse.json(

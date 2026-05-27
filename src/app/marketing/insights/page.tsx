@@ -2,76 +2,37 @@
 
 import { useEffect, useState } from 'react';
 
-interface Post {
+interface NewsItem {
   id: string;
   title: string;
   excerpt: string;
-  tags: string[];
+  image: string;
   date: string;
-  readTime: string;
-  url?: string;
+  categories: string[];
+  source: string;
 }
 
 export default function InsightsPage() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchInsights = async () => {
+    const fetchNews = async () => {
       try {
-        setIsLoading(true);
-        const response = await fetch('/api/insights');
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch insights: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setPosts(data.posts || []);
+        const res = await fetch('/api/insights');
+        if (!res.ok) throw new Error('Failed to fetch news');
+        const data = await res.json();
+        setPosts(data.news || []);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error fetching insights');
-        // Fallback to default posts on error
-        setPosts([
-          {
-            id: 'energy-transition',
-            title: 'The Energy Transition Opportunity',
-            excerpt: 'Southeast Asia is poised for rapid energy transition. We explore the infrastructure investments needed to support 50% renewable energy penetration by 2030.',
-            tags: ['Energy', 'Infrastructure'],
-            date: 'May 15, 2026',
-            readTime: '5 min read',
-          },
-          {
-            id: 'water-scarcity',
-            title: 'Investing in Water Security',
-            excerpt: 'Water scarcity affects millions across Southeast Asia. How patient capital can help build sustainable solutions that serve communities and create long-term returns.',
-            tags: ['Water', 'Impact'],
-            date: 'May 8, 2026',
-            readTime: '7 min read',
-          },
-          {
-            id: 'logistics-growth',
-            title: 'Logistics Networks as Economic Enablers',
-            excerpt: 'Efficient logistics is critical for supply chain resilience. We discuss how infrastructure investment in regional hubs creates multiplier effects across economies.',
-            tags: ['Logistics', 'Capital'],
-            date: 'April 30, 2026',
-            readTime: '6 min read',
-          },
-          {
-            id: 'operations-excellence',
-            title: 'Operational Excellence in Infrastructure',
-            excerpt: 'Operational improvements can generate returns comparable to greenfield development. Our approach to identifying and executing high-impact operational upgrades.',
-            tags: ['Operations', 'Value Creation'],
-            date: 'April 22, 2026',
-            readTime: '8 min read',
-          },
-        ]);
+        setError('Failed to load news');
+        console.error(err);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
-    fetchInsights();
+    fetchNews();
   }, []);
 
   return (
@@ -80,43 +41,82 @@ export default function InsightsPage() {
         <div className="lcg-container">
           <h1 className="lcg-page-title">Insights</h1>
           <p className="lcg-page-lede">
-            Perspectives on infrastructure investment, capital deployment, and the role of patient capital in building economic resilience across Southeast Asia.
+            Latest news and developments in energy, water, and infrastructure sectors across Southeast Asia.
           </p>
         </div>
       </section>
 
       <section className="lcg-section is-padded">
         <div className="lcg-container">
-          {isLoading ? (
-            <div style={{ textAlign: 'center', padding: '40px' }}>
-              <p>Loading insights...</p>
+          {loading && <p style={{ textAlign: 'center', padding: '40px' }}>Loading latest news...</p>}
+          {error && <p style={{ textAlign: 'center', color: '#d32f2f', padding: '40px' }}>{error}</p>}
+          {!loading && !error && (
+            <div className="lcg-posts-grid">
+              {posts.length > 0 ? (
+                posts.map((post) => (
+                  <article key={post.id} className="lcg-post-card">
+                    <div
+                      className="lcg-post-image"
+                      style={{
+                        position: 'relative',
+                        height: '200px',
+                        overflow: 'hidden',
+                        background: '#f0f0f0',
+                      }}
+                    >
+                      {post.image && post.image !== '/news-placeholder.jpg' ? (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                            const parent = (e.target as HTMLImageElement).parentElement;
+                            if (parent) parent.textContent = '📰';
+                          }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100%',
+                            fontSize: '48px',
+                          }}
+                        >
+                          📰
+                        </div>
+                      )}
+                    </div>
+                    <div className="lcg-post-content">
+                      <div className="lcg-post-meta">
+                        <span>{post.date}</span>
+                        <span style={{ fontSize: '12px', color: '#999' }}>{post.source}</span>
+                      </div>
+                      <h2 className="lcg-post-title">{post.title}</h2>
+                      <p className="lcg-post-excerpt">{post.excerpt}</p>
+                      <div className="lcg-post-tags">
+                        {post.categories.map((cat) => (
+                          <span key={cat} className="lcg-post-tag">
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <p style={{ textAlign: 'center', padding: '40px', gridColumn: '1 / -1' }}>
+                  No news items available at this time.
+                </p>
+              )}
             </div>
-          ) : error ? (
-            <div style={{ textAlign: 'center', padding: '40px', color: '#d32f2f' }}>
-              <p>Error loading insights: {error}</p>
-              <p style={{ fontSize: '14px', marginTop: '10px' }}>Showing default posts</p>
-            </div>
-          ) : null}
-          <div className="lcg-posts-grid">
-            {posts.map((post) => (
-              <article key={post.id} className="lcg-post-card">
-                <div className="lcg-post-image">📰</div>
-                <div className="lcg-post-content">
-                  <div className="lcg-post-meta">
-                    <span>{post.date}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h2 className="lcg-post-title">{post.title}</h2>
-                  <p className="lcg-post-excerpt">{post.excerpt}</p>
-                  <div className="lcg-post-tags">
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="lcg-post-tag">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          )}
         </div>
       </section>
     </>
