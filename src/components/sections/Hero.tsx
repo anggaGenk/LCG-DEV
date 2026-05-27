@@ -50,7 +50,7 @@ export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
             animationDelay: `${i * 70}ms`,
             // Explicit animation properties for Windows Chrome compatibility
             animationFillMode: 'forwards',
-            animationPlayState: 'paused', // Will be activated by JS class
+            animationPlayState: 'running',
           }}
         >
           {w}
