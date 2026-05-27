@@ -81,7 +81,8 @@ export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
           <Link href="/marketing/contact" className="lcg-btn lcg-btn--ink lcg-btn-hover-lift">
             {cta1}
           </Link>
-          <Link href="/marketing/portfolio" className="lcg-btn lcg-btn--outline lcg-btn-hover-lift">
+          {/* TODO: Portfolio page not built yet — temporarily points to Services. Revert to /marketing/portfolio once the portfolio page exists. */}
+          <Link href="/marketing/services" className="lcg-btn lcg-btn--outline lcg-btn-hover-lift">
             {cta2} &nbsp;→
           </Link>
         </div>

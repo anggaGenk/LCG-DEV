@@ -16,7 +16,7 @@ export function Footer() {
               <div className="lcg-footer-col-h">Navigation</div>
               <Link href="/marketing/about">About</Link>
               <Link href="/marketing/services">Services</Link>
-              <Link href="/marketing/portfolio">Portfolio</Link>
+              {/* <Link href="/marketing/portfolio">Portfolio</Link> */}
               <Link href="/marketing/contact">Contact</Link>
             </div>
 
