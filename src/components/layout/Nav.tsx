@@ -126,8 +126,8 @@ const NAV_LINKS = [
     label: 'About',
     href: '/marketing/about',
     dropdown: [
-      { id: 'history', label: '📅 FIXED - History', href: '/marketing/about?sub=history' },
-      { id: 'vision', label: '🎯 FIXED - Vision & Mission', href: '/marketing/about?sub=vision' },
+      { id: 'history', label: 'History', href: '/marketing/about?sub=history' },
+      { id: 'vision', label: 'Vision & Mission', href: '/marketing/about?sub=vision' },
       // { id: 'organization', label: 'Organization', href: '/marketing/about?sub=organization' },
       // { id: 'directors', label: 'Board of Directors', href: '/marketing/about?sub=directors' },
       // { id: 'commissioners', label: 'Board of Commissioners', href: '/marketing/about?sub=commissioners' },
