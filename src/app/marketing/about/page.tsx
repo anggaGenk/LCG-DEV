@@ -18,18 +18,18 @@ function AboutHistory() {
   const events = [
     {
       year: '2024',
-      title: 'First year of operations',
-      desc: 'Began operations as a patient-capital holding company, deploying initial capital into water utilities infrastructure across Indonesia. Established foundations in clean water systems serving rural and urban communities, launching our commitment to essential infrastructure development.'
+      title: 'Foundation & First Operations',
+      desc: 'Lasana Cahaya Gemilang was established as a patient-capital holding company with a singular mission: to invest in long-lived, essential infrastructure across Southeast Asia. Our goal was to identify and develop critical assets in water utilities, energy, and logistics that serve underserved communities and support regional economic development. In 2024, we deployed our initial capital into water infrastructure across Indonesia, building clean water systems that serve both rural and urban communities. We established partnerships with local operators and governments, creating the foundation for sustainable, long-term value creation. Our focus: reliable infrastructure that endures.'
     },
     {
       year: '2025',
-      title: 'Expansion into new sectors',
-      desc: 'Expanded beyond water utilities into energy infrastructure and logistics networks. Added 3 new portfolio companies, building expertise across renewable energy transition projects and supply chain infrastructure connecting suppliers, producers, and markets throughout Southeast Asia.'
+      title: 'Sector Expansion & Portfolio Growth',
+      desc: 'With successful operations in water utilities, we expanded our investment thesis to encompass energy infrastructure and logistics networks. In 2025, we added 3 new portfolio companies, building expertise across renewable energy transition projects and supply chain infrastructure. Our goal shifted from foundational operations to accelerated growth: we sought to capture the energy transition opportunity across Southeast Asia, where renewable energy capacity is expanding rapidly. We invested in grid modernization, renewable energy projects, and logistics networks connecting suppliers, producers, and end markets. We grew from a single-sector investor to a diversified infrastructure platform with regional reach.'
     },
     {
       year: '2026',
-      title: 'Scale milestone achieved',
-      desc: 'Achieved significant operational scale with 1,820 MW operating capacity and $2.4B in assets under management. Managing 11 portfolio companies across water, energy, logistics, and industrial services sectors. Recognized as the leading patient-capital investor in Southeast Asian infrastructure.'
+      title: 'Scale Achievement & Market Leadership',
+      desc: 'By 2026, LCG achieved significant operational scale and market recognition. We now manage 11 portfolio companies across water, energy, logistics, and industrial services sectors, with 1,820 MW of operating capacity and $2.4B in assets under management. Our goal for 2026 was clear: become the leading patient-capital investor in Southeast Asian infrastructure. We achieved this by demonstrating disciplined capital deployment, operational excellence, and genuine impact on communities we serve. We built a team of world-class operators and engineers, established governance frameworks trusted by governments and regulators, and created a platform for sustained growth. Today, LCG is recognized as the partner of choice for long-term infrastructure development in the region.'
     },
   ];
 
