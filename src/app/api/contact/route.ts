@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 const RATE_LIMIT_MAP = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
@@ -89,38 +90,39 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Send email via configured email service
-    // For now, log the submission (in production, integrate with email provider)
-    const contactData = {
+    // Initialize Resend with API key
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    // Send email via Resend
+    const { error } = await resend.emails.send({
+      from: process.env.CONTACT_EMAIL_FROM || 'noreply@lcg.local',
+      to: process.env.CONTACT_EMAIL_TO || 'contact@lcg.local',
+      replyTo: sanitizedEmail,
+      subject: `New contact form submission from ${sanitizedName}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${sanitizedName}</p>
+        <p><strong>Email:</strong> ${sanitizedEmail}</p>
+        ${sanitizedOrganization ? `<p><strong>Organization:</strong> ${sanitizedOrganization}</p>` : ''}
+        <p><strong>Message:</strong></p>
+        <p>${sanitizedMessage.replace(/\n/g, '<br>')}</p>
+      `,
+    });
+
+    if (error) {
+      console.error('[Contact Form - Resend Error]', error);
+      return NextResponse.json(
+        { error: 'Failed to send message. Please try again later.' },
+        { status: 500 }
+      );
+    }
+
+    console.log('[Contact Form Submission Sent]', {
       name: sanitizedName,
       email: sanitizedEmail,
       organization: sanitizedOrganization,
-      message: sanitizedMessage,
       submittedAt: new Date().toISOString(),
-      ip: ip.slice(0, 8), // Log partial IP for debugging
-    };
-
-    console.log('[Contact Form Submission]', {
-      ...contactData,
-      ip: 'redacted',
     });
-
-    // TODO: Send to email service (SendGrid, Resend, etc.)
-    // Example with Resend:
-    // const { error } = await resend.emails.send({
-    //   from: process.env.CONTACT_EMAIL_FROM || 'noreply@lcg.local',
-    //   to: process.env.CONTACT_EMAIL_TO || 'contact@lcg.local',
-    //   subject: `New contact form submission from ${sanitizedName}`,
-    //   html: `
-    //     <h2>New Contact Form Submission</h2>
-    //     <p><strong>Name:</strong> ${sanitizedName}</p>
-    //     <p><strong>Email:</strong> ${sanitizedEmail}</p>
-    //     ${sanitizedOrganization ? `<p><strong>Organization:</strong> ${sanitizedOrganization}</p>` : ''}
-    //     <p><strong>Message:</strong></p>
-    //     <p>${sanitizedMessage.replace(/\n/g, '<br>')}</p>
-    //   `,
-    // });
-    // if (error) return NextResponse.json({ error: 'Failed to send message' }, { status: 500 });
 
     return NextResponse.json(
       { message: 'Message received. We will get back to you soon.' },
