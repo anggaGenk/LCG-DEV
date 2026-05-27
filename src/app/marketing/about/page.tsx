@@ -221,9 +221,9 @@ function AboutCommissioners() {
 const SUB_SECTIONS = [
   { id: 'history', label: 'History', component: AboutHistory },
   { id: 'vision', label: 'Vision & Mission', component: AboutVision },
-  { id: 'organization', label: 'Organization', component: AboutOrganization },
-  { id: 'directors', label: 'Board of Directors', component: AboutDirectors },
-  { id: 'commissioners', label: 'Board of Commissioners', component: AboutCommissioners },
+  // { id: 'organization', label: 'Organization', component: AboutOrganization },
+  // { id: 'directors', label: 'Board of Directors', component: AboutDirectors },
+  // { id: 'commissioners', label: 'Board of Commissioners', component: AboutCommissioners },
 ];
 
 function AboutSubnav({ activeId }: { activeId: string | null }) {
