@@ -16,18 +16,29 @@ import Image from 'next/image';
 
 function AboutHistory() {
   const events = [
-    { year: '2023', title: 'First investment', desc: 'Deployed initial capital into first infrastructure asset.' },
-    { year: '2024', title: 'Portfolio expansion', desc: 'Added 3 new companies across water and energy sectors.' },
-    { year: '2025', title: 'Market leadership', desc: 'Recognized as leading patient-capital investor in SE Asia infrastructure.' },
-    { year: '2026', title: 'Scale milestone', desc: 'Portfolio now includes 6 companies with $2.4B in assets under management.' },
+    {
+      year: '2024',
+      title: 'First year of operations',
+      desc: 'Began operations as a patient-capital holding company, deploying initial capital into water utilities infrastructure across Indonesia. Established foundations in clean water systems serving rural and urban communities, launching our commitment to essential infrastructure development.'
+    },
+    {
+      year: '2025',
+      title: 'Expansion into new sectors',
+      desc: 'Expanded beyond water utilities into energy infrastructure and logistics networks. Added 3 new portfolio companies, building expertise across renewable energy transition projects and supply chain infrastructure connecting suppliers, producers, and markets throughout Southeast Asia.'
+    },
+    {
+      year: '2026',
+      title: 'Scale milestone achieved',
+      desc: 'Achieved significant operational scale with 1,820 MW operating capacity and $2.4B in assets under management. Managing 11 portfolio companies across water, energy, logistics, and industrial services sectors. Recognized as the leading patient-capital investor in Southeast Asian infrastructure.'
+    },
   ];
 
   return (
     <div className="lcg-container">
       <h2 className="lcg-section-title">Our History</h2>
       <div className="lcg-timeline">
-        {events.map((event) => (
-          <div key={event.year} className="lcg-timeline-item">
+        {events.map((event, index) => (
+          <div key={event.year} className={`lcg-timeline-item lcg-timeline-item-animated`} style={{ animationDelay: `${index * 200}ms` }}>
             <div className="lcg-timeline-dot" />
             <div className="lcg-timeline-year">{event.year}</div>
             <div className="lcg-timeline-title">{event.title}</div>

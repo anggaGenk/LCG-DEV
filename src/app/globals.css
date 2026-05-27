@@ -1091,17 +1091,70 @@ button.lcg-nav-link {
 }
 
 /* ---- Timeline (About History) ------------------------------------- */
+@keyframes lcgTimelineItemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(40px) translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+}
+
+@keyframes lcgTimelineYearPulse {
+  0% {
+    color: var(--lcg-amber);
+    transform: scale(1);
+  }
+  50% {
+    color: var(--lcg-amber-500);
+    transform: scale(1.08);
+  }
+  100% {
+    color: var(--lcg-amber);
+    transform: scale(1);
+  }
+}
+
+@keyframes lcgTimelineDotGrow {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .lcg-timeline {
   position: relative;
   padding: 60px 0;
 }
+
 .lcg-timeline-item {
   position: relative;
   padding-left: 80px;
   padding-bottom: 60px;
   max-width: 600px;
+  opacity: 1;
+  transform: translateY(0) translateX(0);
 }
+
 .lcg-timeline-item:last-child { padding-bottom: 0; }
+
+/* Animated variant — staggered entrance */
+.lcg-timeline-item-animated {
+  opacity: 0;
+  transform: translateY(40px) translateX(-20px);
+  will-change: opacity, transform;
+}
+
+.lcg-timeline-item-animated {
+  animation: lcgTimelineItemEnter 800ms var(--ease-out) forwards;
+}
+
 .lcg-timeline-dot {
   position: absolute;
   left: 0;
@@ -1112,22 +1165,62 @@ button.lcg-nav-link {
   border-radius: 50%;
   border: 3px solid #fff;
   box-shadow: 0 0 0 3px var(--lcg-amber);
+  transition: box-shadow 300ms var(--ease-standard), transform 300ms var(--ease-standard);
+  transform-origin: center;
 }
+
+.lcg-timeline-item-animated .lcg-timeline-dot {
+  animation: lcgTimelineDotGrow 600ms var(--ease-out) forwards;
+  animation-delay: inherit;
+}
+
+.lcg-timeline-item:hover .lcg-timeline-dot {
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.2), 0 0 0 3px var(--lcg-amber);
+  transform: scale(1.15);
+}
+
 .lcg-timeline-year {
   font: var(--type-label);
   font-weight: 600;
   color: var(--lcg-amber);
   margin-bottom: 6px;
+  transition: color 300ms var(--ease-standard), transform 300ms var(--ease-standard);
+  transform-origin: left center;
+  cursor: pointer;
 }
+
+.lcg-timeline-item:hover .lcg-timeline-year {
+  color: var(--lcg-amber-500);
+  transform: translateX(8px);
+}
+
+/* Pulse animation on year on page load (for animated items) */
+.lcg-timeline-item-animated .lcg-timeline-year {
+  animation: lcgTimelineYearPulse 1.2s var(--ease-standard) 600ms;
+}
+
 .lcg-timeline-title {
   font: var(--type-h2);
   margin: 0 0 8px;
+  transition: color 300ms var(--ease-standard);
 }
+
+.lcg-timeline-item:hover .lcg-timeline-title {
+  color: var(--lcg-amber-500);
+}
+
 .lcg-timeline-desc {
   font: var(--type-body);
   color: var(--fg-2);
   margin: 0;
+  transition: color 300ms var(--ease-standard);
+  line-height: 1.6;
 }
+
+.lcg-timeline-item:hover .lcg-timeline-desc {
+  color: var(--fg-1);
+}
+
 .lcg-timeline-item::before {
   content: '';
   position: absolute;
@@ -1137,8 +1230,40 @@ button.lcg-nav-link {
   height: calc(100% - 40px);
   border-left: 2px solid var(--lcg-line);
   opacity: 0.4;
+  transition: opacity 300ms var(--ease-standard);
 }
+
+.lcg-timeline-item:hover::before {
+  opacity: 0.8;
+  border-left-color: var(--lcg-amber-50);
+}
+
 .lcg-timeline-item:last-child::before { display: none; }
+
+/* Respect accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  .lcg-timeline-item-animated {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .lcg-timeline-item-animated .lcg-timeline-dot {
+    animation: none;
+  }
+
+  .lcg-timeline-item-animated .lcg-timeline-year {
+    animation: none;
+  }
+
+  .lcg-timeline-dot,
+  .lcg-timeline-year,
+  .lcg-timeline-title,
+  .lcg-timeline-desc,
+  .lcg-timeline-item::before {
+    transition: none;
+  }
+}
 
 /* ---- Vision & Mission cards --------------------------------------- */
 .lcg-mission-grid {
