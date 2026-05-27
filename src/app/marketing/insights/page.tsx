@@ -1,38 +1,78 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+interface Post {
+  id: string;
+  title: string;
+  excerpt: string;
+  tags: string[];
+  date: string;
+  readTime: string;
+  url?: string;
+}
+
 export default function InsightsPage() {
-  const posts = [
-    {
-      id: 'energy-transition',
-      title: 'The Energy Transition Opportunity',
-      excerpt: 'Southeast Asia is poised for rapid energy transition. We explore the infrastructure investments needed to support 50% renewable energy penetration by 2030.',
-      tags: ['Energy', 'Infrastructure'],
-      date: 'May 15, 2026',
-      readTime: '5 min read',
-    },
-    {
-      id: 'water-scarcity',
-      title: 'Investing in Water Security',
-      excerpt: 'Water scarcity affects millions across Southeast Asia. How patient capital can help build sustainable solutions that serve communities and create long-term returns.',
-      tags: ['Water', 'Impact'],
-      date: 'May 8, 2026',
-      readTime: '7 min read',
-    },
-    {
-      id: 'logistics-growth',
-      title: 'Logistics Networks as Economic Enablers',
-      excerpt: 'Efficient logistics is critical for supply chain resilience. We discuss how infrastructure investment in regional hubs creates multiplier effects across economies.',
-      tags: ['Logistics', 'Capital'],
-      date: 'April 30, 2026',
-      readTime: '6 min read',
-    },
-    {
-      id: 'operations-excellence',
-      title: 'Operational Excellence in Infrastructure',
-      excerpt: 'Operational improvements can generate returns comparable to greenfield development. Our approach to identifying and executing high-impact operational upgrades.',
-      tags: ['Operations', 'Value Creation'],
-      date: 'April 22, 2026',
-      readTime: '8 min read',
-    },
-  ];
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchInsights = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/insights');
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch insights: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setPosts(data.posts || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error fetching insights');
+        // Fallback to default posts on error
+        setPosts([
+          {
+            id: 'energy-transition',
+            title: 'The Energy Transition Opportunity',
+            excerpt: 'Southeast Asia is poised for rapid energy transition. We explore the infrastructure investments needed to support 50% renewable energy penetration by 2030.',
+            tags: ['Energy', 'Infrastructure'],
+            date: 'May 15, 2026',
+            readTime: '5 min read',
+          },
+          {
+            id: 'water-scarcity',
+            title: 'Investing in Water Security',
+            excerpt: 'Water scarcity affects millions across Southeast Asia. How patient capital can help build sustainable solutions that serve communities and create long-term returns.',
+            tags: ['Water', 'Impact'],
+            date: 'May 8, 2026',
+            readTime: '7 min read',
+          },
+          {
+            id: 'logistics-growth',
+            title: 'Logistics Networks as Economic Enablers',
+            excerpt: 'Efficient logistics is critical for supply chain resilience. We discuss how infrastructure investment in regional hubs creates multiplier effects across economies.',
+            tags: ['Logistics', 'Capital'],
+            date: 'April 30, 2026',
+            readTime: '6 min read',
+          },
+          {
+            id: 'operations-excellence',
+            title: 'Operational Excellence in Infrastructure',
+            excerpt: 'Operational improvements can generate returns comparable to greenfield development. Our approach to identifying and executing high-impact operational upgrades.',
+            tags: ['Operations', 'Value Creation'],
+            date: 'April 22, 2026',
+            readTime: '8 min read',
+          },
+        ]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchInsights();
+  }, []);
 
   return (
     <>
@@ -47,6 +87,16 @@ export default function InsightsPage() {
 
       <section className="lcg-section is-padded">
         <div className="lcg-container">
+          {isLoading ? (
+            <div style={{ textAlign: 'center', padding: '40px' }}>
+              <p>Loading insights...</p>
+            </div>
+          ) : error ? (
+            <div style={{ textAlign: 'center', padding: '40px', color: '#d32f2f' }}>
+              <p>Error loading insights: {error}</p>
+              <p style={{ fontSize: '14px', marginTop: '10px' }}>Showing default posts</p>
+            </div>
+          ) : null}
           <div className="lcg-posts-grid">
             {posts.map((post) => (
               <article key={post.id} className="lcg-post-card">
