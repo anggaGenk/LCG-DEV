@@ -1,7 +1,5 @@
 'use client';
 
-import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -255,10 +253,7 @@ function AboutContent({ subId }: { subId: string | null }) {
   );
 }
 
-function AboutPageContent() {
-  const params = useSearchParams();
-  const subId = params.get('sub');
-
+function AboutPageContent({ subId }: { subId: string | null }) {
   return (
     <>
       <section className="lcg-page-hero">
@@ -276,10 +271,7 @@ function AboutPageContent() {
   );
 }
 
-export default function AboutPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AboutPageContent />
-    </Suspense>
-  );
+export default function AboutPage({ searchParams }: { searchParams: Promise<{ sub?: string }> | { sub?: string } }) {
+  const subId = (searchParams as any)?.sub || null;
+  return <AboutPageContent subId={subId} />;
 }
