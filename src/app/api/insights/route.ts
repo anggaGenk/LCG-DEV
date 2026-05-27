@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { get } from '@vercel/blob';
+import { list } from '@vercel/blob';
 
 interface NewsItem {
   id: string;
@@ -57,26 +57,18 @@ const fallbackNewsData: NewsItem[] = [
 
 async function getNewsData(): Promise<NewsItem[]> {
   try {
-    const response = await get('news-data.json', { access: 'public' });
+    // List all blobs to find news-data.json
+    const result = await list();
+    const newsBlob = result.blobs.find(blob => blob.pathname === 'news-data.json');
 
-    if (response && response.stream) {
-      const reader = response.stream.getReader();
-      const chunks: Uint8Array[] = [];
-
-      let done = false;
-      while (!done) {
-        const { done: streamDone, value } = await reader.read();
-        done = streamDone;
-        if (value) chunks.push(value);
-      }
-
-      const buffer = Buffer.concat(chunks.map(chunk => Buffer.from(chunk)));
-      const text = buffer.toString('utf-8');
-      const data = JSON.parse(text);
-
-      if (data.news && Array.isArray(data.news) && data.news.length > 0) {
-        console.log('[Insights] Loaded news from blob storage');
-        return data.news;
+    if (newsBlob && newsBlob.downloadUrl) {
+      const response = await fetch(newsBlob.downloadUrl);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.news && Array.isArray(data.news) && data.news.length > 0) {
+          console.log('[Insights] Loaded news from blob storage');
+          return data.news;
+        }
       }
     }
   } catch (error) {
