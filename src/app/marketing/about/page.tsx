@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -271,7 +269,8 @@ function AboutPageContent({ subId }: { subId: string | null }) {
   );
 }
 
-export default function AboutPage({ searchParams }: { searchParams: Promise<{ sub?: string }> | { sub?: string } }) {
-  const subId = (searchParams as any)?.sub || null;
+export default async function AboutPage({ searchParams }: { searchParams: Promise<{ sub?: string }> }) {
+  const params = await searchParams;
+  const subId = params?.sub || null;
   return <AboutPageContent subId={subId} />;
 }
