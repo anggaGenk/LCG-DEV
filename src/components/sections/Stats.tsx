@@ -16,11 +16,18 @@ interface StatsProps {
 }
 
 function useCountUp(target: number, { duration = 1600, delay = 0, decimals = 0 } = {}) {
-  const prefersReduced = typeof matchMedia === 'function'
-    && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const [value, setValue] = useState(prefersReduced ? target : 0);
+  const [value, setValue] = useState(0);
+
   useEffect(() => {
-    if (prefersReduced) return;
+    // Check for prefers-reduced-motion preference
+    const prefersReduced = typeof matchMedia === 'function'
+      && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) {
+      setValue(target);
+      return;
+    }
+
     let raf: number;
     let start: number | null = null;
     const timeout = setTimeout(() => {
@@ -36,7 +43,7 @@ function useCountUp(target: number, { duration = 1600, delay = 0, decimals = 0 }
       raf = requestAnimationFrame(tick);
     }, delay);
     return () => { clearTimeout(timeout); cancelAnimationFrame(raf); };
-  }, [target, duration, delay, decimals, prefersReduced]);
+  }, [target, duration, delay, decimals]);
   return value;
 }
 
