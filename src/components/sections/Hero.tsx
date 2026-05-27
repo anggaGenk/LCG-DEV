@@ -26,13 +26,14 @@ export function Hero({ title, subtitle, description, cta1, cta2 }: HeroProps) {
         words.forEach((word, index) => {
           // Use requestAnimationFrame for better browser synchronization
           requestAnimationFrame(() => {
+            const element = word as HTMLElement;
             // Add a data attribute with the index for alternative styling if needed
-            word.setAttribute('data-index', index.toString());
+            element.setAttribute('data-index', index.toString());
             // Trigger reflow to ensure CSS variables/transitions are computed
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            word.offsetHeight;
+            element.offsetHeight;
             // Now add the animation class
-            word.classList.add('is-animating');
+            element.classList.add('is-animating');
           });
         });
       }
